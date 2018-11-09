@@ -15,9 +15,9 @@
 #define UI_SENSORS_NUMBER 5  // ilosc UI sensorow
 #endif
 
-#ifndef UI_PIN_SHIFT
-#define UI_PIN_SHIFT 2          // roznica pomiedzy sensorem a pinem
-#endif
+//#ifndef UI_PIN_SHIFT
+//#define UI_PIN_SHIFT 2          // roznica pomiedzy sensorem a pinem
+//#endif
 
 #ifndef RELAY_ON
 #define RELAY_ON HIGH
@@ -31,7 +31,7 @@
 class UniversalInput
 {
   public:
-	UniversalInput();								                      // SensorType: 0 - security type, 1 - button type, 2 - button+relay type
+	UniversalInput();								                      // SensorType: 0 - security type, 1 - button type, 2 - button+relay type, 3 - relay only
 
   int SensorType;
 	int NewState;
@@ -39,7 +39,8 @@ class UniversalInput
   
 	void SetValuesS(int SensorPin);								        // Security input type
 	void SetValuesB(int ButtonPin);								        // Button input type
-	void SetValuesBR(int RelayPin, int ButtonPin);				// Button+relay input type
+	void SetValuesBR(int RelayPin, int ButtonPin);				// Button+Relay input type
+  void SetValuesR(int RelayPin);                        // Message input/Relay output type
 	void CheckInput();
 	void SetRelay();
   
@@ -53,6 +54,3 @@ class UniversalInput
 };
 
 #endif
-
-
-

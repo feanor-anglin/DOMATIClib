@@ -48,6 +48,17 @@ void UniversalInput::SetValuesBR(int RelayPin, int ButtonPin) {
 }
 
 /*  *******************************************************************************************
+ *                                    Set Values Relay
+ *  *******************************************************************************************/
+void UniversalInput::SetValuesR(int RelayPin) {
+
+  SensorType = 3;
+  _RelayPin = RelayPin;
+  pinMode(_RelayPin, OUTPUT);
+  digitalWrite(_RelayPin, RELAY_OFF);
+}
+
+/*  *******************************************************************************************
  *                                      Input Check
  *  *******************************************************************************************/
 void UniversalInput::CheckInput() {
@@ -105,7 +116,3 @@ void UniversalInput::SetRelay() {
  * EOF
  * 
  */
-
-
-
-
