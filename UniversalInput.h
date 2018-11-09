@@ -15,10 +15,6 @@
 #define UI_SENSORS_NUMBER 5  // ilosc UI sensorow
 #endif
 
-//#ifndef UI_PIN_SHIFT
-//#define UI_PIN_SHIFT 2          // roznica pomiedzy sensorem a pinem
-//#endif
-
 #ifndef RELAY_ON
 #define RELAY_ON HIGH
 #endif
