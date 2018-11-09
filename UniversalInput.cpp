@@ -20,7 +20,7 @@ UniversalInput::UniversalInput()  {
 void UniversalInput::SetValuesS(int SensorPin) {
 
   SensorType = 0;
-	_SensorPin = SensorPin;
+  _SensorPin = SensorPin;
   pinMode(_SensorPin, INPUT_PULLUP);
 }
 
@@ -30,7 +30,7 @@ void UniversalInput::SetValuesS(int SensorPin) {
 void UniversalInput::SetValuesB(int ButtonPin) {
 
   SensorType = 1;
-	_SensorPin = ButtonPin;
+  _SensorPin = ButtonPin;
   pinMode(_SensorPin, INPUT_PULLUP);
 }
 
@@ -40,8 +40,8 @@ void UniversalInput::SetValuesB(int ButtonPin) {
 void UniversalInput::SetValuesBR(int RelayPin, int ButtonPin) {
 
   SensorType = 2;
-	_RelayPin = RelayPin;
-	_SensorPin = ButtonPin;
+  _RelayPin = RelayPin;
+  _SensorPin = ButtonPin;
   pinMode(_RelayPin, OUTPUT);
   pinMode(_SensorPin, INPUT_PULLUP);
   digitalWrite(_RelayPin, RELAY_OFF);
@@ -52,7 +52,7 @@ void UniversalInput::SetValuesBR(int RelayPin, int ButtonPin) {
  *  *******************************************************************************************/
 void UniversalInput::SetValuesR(int RelayPin) {
 
-  SensorType = 3;
+  SensorType = 2;
   _RelayPin = RelayPin;
   pinMode(_RelayPin, OUTPUT);
   digitalWrite(_RelayPin, RELAY_OFF);
@@ -108,8 +108,8 @@ void UniversalInput::CheckInput() {
  *  *******************************************************************************************/
 void UniversalInput::SetRelay() {
 
-	digitalWrite(_RelayPin, NewState);
-	OldState = NewState;
+  digitalWrite(_RelayPin, NewState);
+  OldState = NewState;
 }
 /*
  * 
