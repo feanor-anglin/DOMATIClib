@@ -28,6 +28,8 @@ int Heating::SetSectionValues(int RelayPin, int T_ID, int EEPROM_ADDRESS) {
   }
   EEPROM_ADDRESS += sizeof(float);
   
+  SectionStatus = true;
+  
   _T_ID = T_ID;
   
   _RelayPin = RelayPin;
@@ -43,18 +45,18 @@ int Heating::SetSectionValues(int RelayPin, int T_ID, int EEPROM_ADDRESS) {
  *                                    Changing Relay State
  *  *******************************************************************************************/
 void Heating::SetRelay(bool NewState) {
-  // Debug info
-  Serial.print("Relay pin: ");  Serial.println(_RelayPin);
-  Serial.print("New State: ");  Serial.println(NewState);
-  digitalWrite(_RelayPin, NewState);
-  RelayState = NewState;
+  
+  if(SectionStatus != false)  {
+    digitalWrite(_RelayPin, NewState);
+    RelayState = NewState;
+  }
 }
 
 /*  *******************************************************************************************
  *                               Saving Temperature from Controller
  *  *******************************************************************************************/
 void Heating::SetTemperature(float Temperature)  {
-
+  
   _TemperatureSet = Temperature;
   EEPROM.put(_EEPROM_ADDRESS, _TemperatureSet);
 
