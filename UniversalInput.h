@@ -7,8 +7,7 @@
  * SensorType:
  * 0 - Security Sensor (door/window or pir)
  * 1 - Button Sensor
- * 2 - Button+Relay sensor
- * 3 - Relay sensor
+ * 2 - Button+Relay sensor or Relay sensor
  *
  */
 
