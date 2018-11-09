@@ -1,5 +1,5 @@
 /*
- * This is a library designed to control a multi-section heating controller.
+ * This code is designed to control a multi-section heating controller.
  * It uses hysteresis principle to compare set points to temperature values from other sensors
  * (remote temperature nodes) and decide when to open/close heating valves. 
  * For now, IDs of remote temperature nodes are hard written in NodeDefinitions.h, 
@@ -31,6 +31,7 @@ class Heating
     Heating();
     
     bool RelayState;                               // Current relay state
+    bool SectionStatus;                            // Activation/deactivation of the section
 
     void SetRelay(bool NewState);
     int SetSectionValues(int RelayPin, int T_ID, int EEPROM_ADDRESS);
