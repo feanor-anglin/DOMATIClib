@@ -7,7 +7,7 @@
 /*  *******************************************************************************************
  *                                      Constructor
  *  *******************************************************************************************/
-RShutterControl::RShutterControl(int UpPin, int DownPin/*, int AddressUpTime, int AddressDownTime, int PS_PIN*/)  {
+RShutterControl::RShutterControl(int UpPin, int DownPin)  {
 
   int _DownPin = DownPin;
   int _UpPin = UpPin;
@@ -30,7 +30,7 @@ RShutterControl::RShutterControl(int UpPin, int DownPin/*, int AddressUpTime, in
 /*  *******************************************************************************************
  *                                        Calibration
  *  *******************************************************************************************/
-void RShutterControl::Calibration(/*int PS_PIN, int AddressUpTime, int AddressDownTime*/)  {
+void RShutterControl::Calibration()  {
 
   #ifdef MY_DEBUG
     Serial.println("Start Calibration");
