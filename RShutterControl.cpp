@@ -11,16 +11,19 @@ RShutterControl::RShutterControl(int UpPin, int DownPin/*, int AddressUpTime, in
 
   int _DownPin = DownPin;
   int _UpPin = UpPin;
-  int DownTime = EEPROM.read(EEA_RS_TIME_DOWN);
-  int UpTime = EEPROM.read(EEA_RS_TIME_UP);
+  int DownTime;
+  int UpTime;
+
+  EEPROM.get(EEA_RS_TIME_DOWN, DownTime);
+  EEPROM.get(EEA_RS_TIME_UP, UpTime);
   
-  if(UpTime == 0 || DownTime == 0)  {   //to jest źle!! pusty eeprom trzyma wartosc 255, ale lepiej uzyc dodatkowej zmiennej okreslajacej, ze zapis do eepromu sie powiodl i ja sprawdzac
+  if(UpTime > 30000 || DownTime > 30000)  {
     Calibration(/*PS_PIN, AddressUpTime, AddressDownTime*/);
   }
   else  {
     _UpTime = UpTime;
     _DownTime = DownTime;
-    Position = EEPROM.read(EEA_RS_POSITION);
+    EEPROM.get(EEA_RS_POSITION, Position);
   }
 }
 
@@ -37,8 +40,8 @@ void RShutterControl::Calibration(/*int PS_PIN, int AddressUpTime, int AddressDo
   digitalWrite(_DownPin, RELAY_OFF);  
   digitalWrite(_UpPin, RELAY_ON);
 
+  delay(100);
   while(PS.MeasureAC(PS_PIN) > PS_OFFSET)  {     // Tu moze byc problem z okresleniem wartosci pradu
-    delay(100);
   }
   digitalWrite(_UpPin, RELAY_OFF);
 
@@ -109,85 +112,3 @@ void RShutterControl::Stop()  {
   digitalWrite(_DownPin, RELAY_OFF);
   digitalWrite(_UpPin, RELAY_OFF);
 }
-
-/*  *******************************************************************************************
- *                                   Movement from Buttons
- *  *******************************************************************************************/
-/*void RShutterControl::RShutterMove1(int Direction, int UP_ID, int DOWN_ID) {
-
-  int pin; int pin2; int Time;
- 
-  if(Direction = 0) {
-    pin = _DownPin; pin2 = _UpPin; Time = _DownTime;
-  }
-  else if(Direction = 1)  {
-    pin = _UpPin; pin2 = _DownPin; Time = _UpTime;
-  }
-
-  digitalWrite(pin2, RELAY_OFF);
-
-  unsigned long TIME_1 = millis();
-  unsigned long TIME_2 = 0;
-  unsigned long TIME_3 = 0;
-
-  digitalWrite(pin, RELAY_ON);
-  while(UI.NewState[UP_ID] == UI.OldState[UP_ID] && UI.NewState[DOWN_ID] == UI.OldState[DOWN_ID]) {
-    UI.CheckInput(UP_ID, 1);
-    UI.CheckInput(DOWN_ID, 1);
-    //wait(100);
-
-    TIME_2 = millis();
-    TIME_3 = (TIME_2 - TIME_1) / 1000;
-
-    if(TIME_3 > Time) {
-      digitalWrite(pin, RELAY_OFF);
-      RSPosition = (Direction == 0 ? 100 : 0);
-      break;
-    }
-  }
-  if(digitalRead(pin) != RELAY_OFF) {
-    digitalWrite(pin, RELAY_OFF);
-    UI.OldState[UP_ID] = UI.NewState[UP_ID];
-    UI.OldState[DOWN_ID] = UI.NewState[DOWN_ID];
-    int PositionChange = (int)(TIME_3 / Time);
-    RSPosition += (Direction == 0 ? PositionChange : -PositionChange);
-    RSPosition = RSPosition > 100 ? 100 : RSPosition;
-    RSPosition = RSPosition < 0 ? 0 : RSPosition;
-  }
-  EEPROM.write(EEA_RS_POSITION, RSPosition);
-}
-
-/*  *******************************************************************************************
- *                                   Movement from Controller
- *  *******************************************************************************************/
-/*void RShutterControl::RShutterMove2(int NewPosition)  {
-
-  float MovementRange = ((float)NewPosition - (float)RSPosition) / 100;       // Downward => MR > 0; Upward MR < 0
-  int MovementDirection = MovementRange > 0 ? 1 : -1;
-  int MovementTime;
-
-  if(MovementDirection == 1)  {
-    MovementTime = _DownTime * abs(MovementRange) * 1000;
-    digitalWrite(_DownPin, RELAY_ON);
-    wait(MovementTime);
-    digitalWrite(_DownPin, RELAY_OFF);
-  }
-  else if(MovementDirection == -1)  {
-    MovementTime = _UpTime * abs(MovementRange) * 1000;
-    digitalWrite(_UpPin, RELAY_ON);
-    wait(MovementTime);
-    digitalWrite(_UpPin, RELAY_OFF);
-  }
-  RSPosition = NewPosition;
-  EEPROM.write(EEA_RS_POSITION, RSPosition);
-  
-  
-}*/
-
- 
-/*
- * 
- * EOF
- * 
- */
-
