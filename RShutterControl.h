@@ -24,11 +24,11 @@
 class RShutterControl
 {
   public:
-    RShutterControl(int UpPin, int DownPin/*, int AddressUpTime, int AddressDownTime, int PS_PIN*/);
+    RShutterControl(int UpPin, int DownPi);
 
     int Position;
 
-    void Calibration(/*int PS_PIN, int AddressUpTime, int AddressDownTime*/);     // Find up and down time by measuring current, save values to eeprom for use even after power failure
+    void Calibration();     // Find up and down time by measuring current, save values to eeprom for use even after power failure
     int Move(int Direction);
     void Stop();
     //void RShutterMove2(int NewPosition);
