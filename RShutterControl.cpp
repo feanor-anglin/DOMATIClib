@@ -9,8 +9,8 @@
  *  *******************************************************************************************/
 RShutterControl::RShutterControl(int UpPin, int DownPin)  {
 
-  int _DownPin = DownPin;
-  int _UpPin = UpPin;
+  _DownPin = DownPin;
+  _UpPin = UpPin;
   int DownTime;
   int UpTime;
 
@@ -94,10 +94,10 @@ int RShutterControl::Move(int Direction)  {
   
   int pin; int pin2; int Time;
 
-  if(Direction = 1) {
+  if(Direction == 1) {
     pin = _DownPin; pin2 = _UpPin; Time = _DownTime;
   }
-  else if(Direction = 0)  {
+  else if(Direction == 0)  {
     pin = _UpPin; pin2 = _DownPin; Time = _UpTime;
   }
   
