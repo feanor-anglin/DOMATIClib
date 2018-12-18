@@ -13,6 +13,9 @@ RShutterControl::RShutterControl(int UpPin, int DownPin)  {
   _UpPin = UpPin;
   int DownTime;
   int UpTime;
+  
+  pinMode(_UpPin, OUTPUT);
+  pinMode(_DownPin, OUTPUT);
 
   EEPROM.get(EEA_RS_TIME_DOWN, DownTime);
   EEPROM.get(EEA_RS_TIME_UP, UpTime);
@@ -85,9 +88,9 @@ void RShutterControl::Calibration()  {
   _DownTime = (int)(DownTimeCumulated / CALIBRATION_SAMPLES);
   _UpTime = (int)(UpTimeCumulated / CALIBRATION_SAMPLES);
 
-  EEPROM.write(EEA_RS_TIME_DOWN, _DownTime);
-  EEPROM.write(EEA_RS_TIME_UP, _UpTime);
-  EEPROM.write(EEA_RS_POSITION, Position);
+  EEPROM.put(EEA_RS_TIME_DOWN, _DownTime);
+  EEPROM.put(EEA_RS_TIME_UP, _UpTime);
+  EEPROM.put(EEA_RS_POSITION, Position);
 }
 
 int RShutterControl::Move(int Direction)  {
