@@ -21,7 +21,7 @@ RShutterControl::RShutterControl(int UpPin, int DownPin)  {
   EEPROM.get(EEA_RS_TIME_UP, UpTime);
   
   if(UpTime > 30000 || DownTime > 30000)  {
-    Calibration(/*PS_PIN, AddressUpTime, AddressDownTime*/);
+    //Calibration();          // Calibration function not tested yet!
   }
   else  {
     _UpTime = UpTime;
