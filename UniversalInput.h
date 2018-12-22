@@ -28,6 +28,14 @@
 #define RELAY_OFF LOW
 #endif
 
+#ifndef PRESS_TIME
+#define PRESS_TIME 20
+#endif
+
+#ifndef SPECIAL_BUTTON_TIME
+#define SPECIAL_BUTTON_TIME 1000
+#endif
+
 
 class UniversalInput
 {
