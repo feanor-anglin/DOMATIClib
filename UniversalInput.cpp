@@ -80,14 +80,17 @@ void UniversalInput::CheckInput() {
     if(_HighStateDetection == true) {
       unsigned long StartTime = millis();
       while(digitalRead(_SensorPin) == LOW)  {
-        _LowStateDetection = true;
-        _HighStateDetection = false;
-        if(millis() - StartTime > 1000) {
+        if(millis() - StartTime > PRESS_TIME) {
+          _LowStateDetection = true;
+          _HighStateDetection = false;
+        }
+        if(millis() - StartTime > SPECIAL_BUTTON_TIME) {
           _Condition = true;
+          _LowStateDetection = false;
           break; 
         }
       }
-      if(_Condition == false && _LowStateDetection == true) {
+      if(_LowStateDetection == true) {
         if(OldState == 0) {
           NewState = 1;
         }
