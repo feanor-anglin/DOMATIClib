@@ -1,5 +1,6 @@
 /*
- *
+ * PinShift - variable corresponding to arythmetical difference
+ * between a sensor and its pin
  */
 
 #include "UniversalInput.h"
@@ -14,47 +15,42 @@ UniversalInput::UniversalInput()  {
 }
 
 /*  *******************************************************************************************
- *                                		Set Values Security
+ *                                    Set Values
  *  *******************************************************************************************/
-void UniversalInput::SetValuesS(int SensorPin) {
+void UniversalInput::SetValues(int Type, int Pin1, int Pin2=0) {
 
-  SensorType = 0;
-  _SensorPin = SensorPin;
-  pinMode(_SensorPin, INPUT_PULLUP);
-}
-
-/*  *******************************************************************************************
- *                                		Set Values Button
- *  *******************************************************************************************/
-void UniversalInput::SetValuesB(int ButtonPin) {
-
-  SensorType = 1;
-  _SensorPin = ButtonPin;
-  pinMode(_SensorPin, INPUT_PULLUP);
-}
-
-/*  *******************************************************************************************
- *                                		Set Values Button+relay
- *  *******************************************************************************************/
-void UniversalInput::SetValuesBR(int RelayPin, int ButtonPin) {
-
-  SensorType = 2;
-  _RelayPin = RelayPin;
-  _SensorPin = ButtonPin;
-  pinMode(_RelayPin, OUTPUT);
-  pinMode(_SensorPin, INPUT_PULLUP);
-  digitalWrite(_RelayPin, RELAY_OFF);
-}
-
-/*  *******************************************************************************************
- *                                    Set Values Relay
- *  *******************************************************************************************/
-void UniversalInput::SetValuesR(int RelayPin) {
-
-  SensorType = 2;
-  _RelayPin = RelayPin;
-  pinMode(_RelayPin, OUTPUT);
-  digitalWrite(_RelayPin, RELAY_OFF);
+  SensorType = Type;
+  switch(SensorType)  {
+    // Door/window sensor
+    case 0:
+      _SensorPin = Pin1;
+      pinMode(_SensorPin, INPUT_PULLUP);
+      break;
+    // Motion sensor
+    case 1:
+      _SensorPin = Pin1;
+      pinMode(_SensorPin, INPUT);
+      break;
+    // Button input
+    case 2:
+      _SensorPin = Pin1;
+      pinMode(_SensorPin, INPUT_PULLUP);
+      break;
+    // Relay output
+    case 3:
+      _SensorPin = Pin1;
+      pinMode(_SensorPin, OUTPUT);
+      break;
+    // Button input + Relay output
+    case 4:
+      _SensorPin = Pin1;
+      _RelayPin = Pin2;
+      pinMode(_SensorPin, INPUT_PULLUP);
+      pinMode(_RelayPin, OUTPUT);
+      digitalWrite(_RelayPin, RELAY_OFF);
+    default:
+      break;
+  }
 }
 
 /*  *******************************************************************************************
@@ -80,17 +76,14 @@ void UniversalInput::CheckInput() {
     if(_HighStateDetection == true) {
       unsigned long StartTime = millis();
       while(digitalRead(_SensorPin) == LOW)  {
-        if(millis() - StartTime > PRESS_TIME) {
-          _LowStateDetection = true;
-          _HighStateDetection = false;
-        }
-        if(millis() - StartTime > SPECIAL_BUTTON_TIME) {
+        _LowStateDetection = true;
+        _HighStateDetection = false;
+        if(millis() - StartTime > 1000) {
           _Condition = true;
-          _LowStateDetection = false;
           break; 
         }
       }
-      if(_LowStateDetection == true) {
+      if(_Condition == false && _LowStateDetection == true) {
         if(OldState == 0) {
           NewState = 1;
         }
@@ -106,7 +99,7 @@ void UniversalInput::CheckInput() {
 }
 
 /*  *******************************************************************************************
- *                                			Set Relay
+ *                                      Set Relay
  *  *******************************************************************************************/
 void UniversalInput::SetRelay() {
 
