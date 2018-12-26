@@ -58,7 +58,7 @@ void UniversalInput::SetValues(int Type, int Pin1, int Pin2=0) {
  *  *******************************************************************************************/
 void UniversalInput::CheckInput() {
 
-  if(SensorType == 0) {   // Security sensor
+  if(SensorType == 0 || SensorType == 1) {   // Security sensors
     if(digitalRead(_SensorPin) == LOW)  {
       NewState = 0;
     }
@@ -66,7 +66,7 @@ void UniversalInput::CheckInput() {
       NewState = 1;
     }
   }
-  else if(SensorType == 1 || SensorType == 2)  {   // Button
+  else if(SensorType == 2 || SensorType == 3 || SensorType == 4)  {   // Button, Relay, Both
     
     if(digitalRead(_SensorPin) != LOW)  {
       _HighStateDetection = true;
