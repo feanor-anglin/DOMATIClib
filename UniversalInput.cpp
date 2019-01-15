@@ -17,7 +17,7 @@ UniversalInput::UniversalInput()  {
 /*  *******************************************************************************************
  *                                    Set Values
  *  *******************************************************************************************/
-void UniversalInput::SetValues(int Type, int Pin1, int Pin2=0) {
+void UniversalInput::SetValues(int Type, int Pin1, int Pin2) {
 
   SensorType = Type;
   switch(SensorType)  {
