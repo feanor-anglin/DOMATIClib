@@ -48,6 +48,7 @@ void UniversalInput::SetValues(int Type, int Pin1, int Pin2) {
       pinMode(_SensorPin, INPUT_PULLUP);
       pinMode(_RelayPin, OUTPUT);
       digitalWrite(_RelayPin, RELAY_OFF);
+      break;
     default:
       break;
   }
