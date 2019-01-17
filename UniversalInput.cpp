@@ -38,8 +38,8 @@ void UniversalInput::SetValues(int Type, int Pin1, int Pin2) {
       break;
     // Relay output
     case 3:
-      _SensorPin = Pin1;
-      pinMode(_SensorPin, OUTPUT);
+      _RelayPin = Pin1;
+      pinMode(_RelayPin, OUTPUT);
       break;
     // Button input + Relay output
     case 4:
