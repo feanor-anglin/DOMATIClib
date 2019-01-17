@@ -40,6 +40,7 @@ void UniversalInput::SetValues(int Type, int Pin1, int Pin2) {
     case 3:
       _RelayPin = Pin1;
       pinMode(_RelayPin, OUTPUT);
+      digitalWrite(_RelayPin, RELAY_OFF);
       break;
     // Button input + Relay output
     case 4:
