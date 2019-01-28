@@ -12,7 +12,7 @@
 #include "Arduino.h"
 
 #ifndef MAX_TEMPERATURE
-#define MAX_TEMPERATURE 60
+#define MAX_TEMPERATURE 85
 #endif
 
 #ifndef MVPERC
