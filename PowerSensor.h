@@ -26,12 +26,14 @@ class PowerSensor
   
   float AmpsRMS;
   float Power;       
-
-  float MeasureAC(int SensorPin);
+  
+  void SetValues(int SensorPin);
+  float MeasureAC();
   float CalculatePower(float Current, int ACVoltage);
   bool ElectricalStatus(float Current);
 
   private:
+  int _SensorPin;
   int _mVperAmp;            // 100 mV/A for 20A module, 185 mV/A for 5A module
   
 };

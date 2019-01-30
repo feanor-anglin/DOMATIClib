@@ -5,9 +5,11 @@
  * 
  * 
  * SensorType:
- * 0 - Security Sensor (door/window or pir)
- * 1 - Button Sensor
- * 2 - Button+Relay sensor or Relay sensor
+ * 0 - Door/window sensor
+ * 1 - Motion sensor
+ * 2 - Button input
+ * 3 - Relay output
+ * 4 - Button input + Relay output
  *
  */
 
@@ -17,7 +19,7 @@
 #include "Arduino.h"
 
 #ifndef UI_SENSORS_NUMBER
-#define UI_SENSORS_NUMBER 5  // ilosc UI sensorow
+#define UI_SENSORS_NUMBER 4  // ilosc UI sensorow
 #endif
 
 #ifndef RELAY_ON
@@ -28,37 +30,26 @@
 #define RELAY_OFF LOW
 #endif
 
-#ifndef PRESS_TIME
-#define PRESS_TIME 20
-#endif
-
-#ifndef SPECIAL_BUTTON_TIME
-#define SPECIAL_BUTTON_TIME 1000
-#endif
-
 
 class UniversalInput
 {
   public:
-	UniversalInput();				
+  UniversalInput();       
 
   int SensorType;
-	int NewState;
-	int OldState;
-  
-	void SetValuesS(int SensorPin);						// Security input type
-	void SetValuesB(int ButtonPin);						// Button input type
-	void SetValuesBR(int RelayPin, int ButtonPin);				// Button+Relay input type
-  	void SetValuesR(int RelayPin);                        			// Message input/Relay output type
-	void CheckInput();
-	void SetRelay();
+  int NewState;
+  int OldState;
+
+  void SetValues(int Type, int Pin1, int Pin2=0);
+  void CheckInput();
+  void SetRelay();
   
   private:
-	int _RelayPin;
-	int _SensorPin;
-  	bool _LowStateDetection;
-	bool _HighStateDetection;
-	bool _Condition;
+  int _RelayPin;
+  int _SensorPin;
+  bool _LowStateDetection;
+  bool _HighStateDetection;
+  bool _Condition;
   
 };
 
