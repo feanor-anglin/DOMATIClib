@@ -24,7 +24,7 @@ void PowerSensor::SetValues(int SensorPin) {
 /*  *******************************************************************************************
  *                                   Current Measurement
  *  *******************************************************************************************/
-float PowerSensor::MeasureAC(int SensorPin)  {
+float PowerSensor::MeasureAC()  {
   
   float Result;
 
@@ -34,7 +34,7 @@ float PowerSensor::MeasureAC(int SensorPin)  {
 
   uint32_t StartTime = millis();
   while((millis() - StartTime) < POWER_MEASURING_TIME)  {
-    ReadValue = analogRead(SensorPin);
+    ReadValue = analogRead(_SensorPin);
     if(ReadValue > MaxValue)  {
       MaxValue = ReadValue;
     }
@@ -46,7 +46,7 @@ float PowerSensor::MeasureAC(int SensorPin)  {
   Result = ((MaxValue - MinValue) * 5.0) / 1024.0;
     
   float VRMS = (Result / 2) * 0.707;
-  AmpsRMS = (VRMS * 1000) / _mVperAmp;
+  float AmpsRMS = (VRMS * 1000) / _mVperAmp;
 
   return AmpsRMS;
 }
