@@ -11,7 +11,6 @@
 #include "NodeDefinitions.h"
 #include "PowerSensor.h"
 #include "UniversalInput.h"
-//#include <core/MySensorsCore.h>
 
 #ifndef PS_OFFSET
 #define PS_OFFSET 0.2
@@ -31,18 +30,14 @@ class RShutterControl
     void Calibration();     // Find up and down time by measuring current, save values to eeprom for use even after power failure
     int Move(int Direction);
     void Stop();
-    //void RShutterMove2(int NewPosition);
 
   private:
     int _UpPin;
     int _DownPin;
     int _UpTime;
     int _DownTime;
-    //int _AddressUpTime;
-    //int _AndresDownTime;
 
     PowerSensor PS;
-    //UniversalInput UI;
         
 };
 
