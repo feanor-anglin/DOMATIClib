@@ -44,7 +44,7 @@ void RShutterControl::Calibration()  {
   digitalWrite(_UpPin, RELAY_ON);
 
   delay(100);
-  while(PS.MeasureAC(PS_PIN) > PS_OFFSET)  {     // Tu moze byc problem z okresleniem wartosci pradu
+  while(PS.MeasureAC() > PS_OFFSET)  {     // Tu moze byc problem z okresleniem wartosci pradu
   }
   digitalWrite(_UpPin, RELAY_OFF);
 
@@ -61,7 +61,7 @@ void RShutterControl::Calibration()  {
     TIME_1 = millis();
     digitalWrite(_DownPin, RELAY_ON);
     delay(100);
-    while(PS.MeasureAC(PS_PIN) > PS_OFFSET) {
+    while(PS.MeasureAC() > PS_OFFSET) {
       TIME_2 = millis();
     }
     digitalWrite(_DownPin, RELAY_OFF);
@@ -74,7 +74,7 @@ void RShutterControl::Calibration()  {
     TIME_1 = millis();
     digitalWrite(_UpPin, RELAY_ON);
     delay(100);
-    while(PS.MeasureAC(PS_PIN) > PS_OFFSET) {
+    while(PS.MeasureAC() > PS_OFFSET) {
       TIME_2 = millis();
     }
     digitalWrite(_UpPin, RELAY_OFF);
@@ -93,6 +93,9 @@ void RShutterControl::Calibration()  {
   EEPROM.put(EEA_RS_POSITION, Position);
 }
 
+/*  *******************************************************************************************
+ *                                        RS Move
+ *  *******************************************************************************************/
 int RShutterControl::Move(int Direction)  {
   
   int pin; int pin2; int Time;
@@ -110,6 +113,9 @@ int RShutterControl::Move(int Direction)  {
   return Time;
 }
 
+/*  *******************************************************************************************
+ *                                        RS Stop
+ *  *******************************************************************************************/
 void RShutterControl::Stop()  {
 
   digitalWrite(_DownPin, RELAY_OFF);
