@@ -1,6 +1,5 @@
 /*
- * PinShift - variable corresponding to arythmetical difference
- * between a sensor and its pin
+ *
  */
 
 #include "UniversalInput.h"
